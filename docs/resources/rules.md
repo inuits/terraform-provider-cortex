@@ -3,12 +3,12 @@
 page_title: "cortex_rules Resource - terraform-provider-cortex"
 subcategory: ""
 description: |-
-  This resource enables you to manages rule groups inside a cortex cluster.
+  This resource enables you to manage rule groups inside a cortex cluster.
 ---
 
 # cortex_rules (Resource)
 
-This resource enables you to manages rule groups inside a cortex cluster.
+This resource enables you to manage rule groups inside a cortex cluster.
 
 
 
