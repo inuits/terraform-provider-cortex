@@ -81,13 +81,16 @@ func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}
 			ID:      tenantID,
 		})
 
-		if err == nil {
-			tr := client.Client.Transport
-			if client.Client.Transport == nil {
-				tr = http.DefaultTransport
-			}
-			client.Client.Transport = logging.NewTransport("cortex", tr)
+		if err != nil {
+			return nil, err
 		}
+
+		// Setup Terraform-SDK transport to enable debugging via TF_LOGS=debug.
+		tr := client.Client.Transport
+		if client.Client.Transport == nil {
+			tr = http.DefaultTransport
+		}
+		client.Client.Transport = logging.NewTransport("cortex", tr)
 
 		return client, err
 	}
