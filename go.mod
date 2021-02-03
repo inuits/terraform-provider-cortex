@@ -10,3 +10,5 @@ require (
 	github.com/stretchr/testify v1.6.1
 	gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776
 )
+
+replace github.com/grafana/cortex-tools => github.com/roidelapluie/cortex-tools v0.7.2-0.20210203220738-187163724cc4
