@@ -89,7 +89,7 @@ func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}
 			client.Client.Transport = logging.NewTransport("cortex", tr)
 		}
 
-		return client, nil
+		return client, err
 	}
 
 	return f, diags
