@@ -19,4 +19,4 @@ description: |-
 
 - **address** (String) Address of the Cortex cluster
 - **api_key** (String, Sensitive) API key, used as basic auth password.
-- **tenant** (String) Tenant ID, passed as X-Org-ScopeID HTTP header.
+- **tenant_id** (String) Tenant ID, passed as X-Org-ScopeID HTTP header.

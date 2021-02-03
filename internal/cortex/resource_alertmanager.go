@@ -17,7 +17,7 @@ func resourceAlertmanager() *schema.Resource {
 		UpdateContext: resourceAlertsCreate,
 		DeleteContext: resourceAlertsDelete,
 		Schema: map[string]*schema.Schema{
-			"tenant": &schema.Schema{
+			"tenant_id": &schema.Schema{
 				Description: "Tenant ID, passed as X-Org-ScopeID HTTP header. If empty, the provider tenant ID is used.",
 				Type:        schema.TypeString,
 				Optional:    true,
@@ -60,7 +60,7 @@ func resourceAlertsCreate(ctx context.Context, d *schema.ResourceData, m interfa
 		diags     diag.Diagnostics
 	)
 
-	if data, ok := d.GetOk("tenant"); ok {
+	if data, ok := d.GetOk("tenant_id"); ok {
 		tenantID = data.(string)
 	}
 	if data, ok := d.GetOk("template_files"); ok {

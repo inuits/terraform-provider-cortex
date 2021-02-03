@@ -39,10 +39,10 @@ func Provider() *schema.Provider {
 				DefaultFunc: schema.EnvDefaultFunc("CORTEX_API_KEY", ""),
 				Description: "API key, used as basic auth password.",
 			},
-			"tenant": {
+			"tenant_id": {
 				Type:        schema.TypeString,
 				Optional:    true,
-				DefaultFunc: schema.EnvDefaultFunc("TENANT_ID", ""),
+				DefaultFunc: schema.EnvDefaultFunc("CORTEX_TENANT_ID", ""),
 				Description: "Tenant ID, passed as X-Org-ScopeID HTTP header.",
 			},
 		},
@@ -63,7 +63,7 @@ func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}
 	if data, ok := d.GetOk("api_key"); ok {
 		apiKey = data.(string)
 	}
-	if data, ok := d.GetOk("tenant"); ok {
+	if data, ok := d.GetOk("tenant_id"); ok {
 		defaultTenantID = data.(string)
 	}
 

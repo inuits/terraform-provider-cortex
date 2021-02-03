@@ -23,6 +23,6 @@ This resource enables you to manage rule groups inside a cortex cluster.
 ### Optional
 
 - **id** (String) The ID of this resource.
-- **tenant** (String) Tenant ID, passed as X-Org-ScopeID HTTP header. If empty, the provider tenant ID is used.
+- **tenant_id** (String) Tenant ID, passed as X-Org-ScopeID HTTP header. If empty, the provider tenant ID is used.
 
 

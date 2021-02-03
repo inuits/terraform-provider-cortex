@@ -23,6 +23,6 @@ This alermanager resource enables you to manage Alertmanger configuration in Cor
 
 - **id** (String) The ID of this resource.
 - **template_files** (Map of String) Alert templates.
-- **tenant** (String) Tenant ID, passed as X-Org-ScopeID HTTP header. If empty, the provider tenant ID is used.
+- **tenant_id** (String) Tenant ID, passed as X-Org-ScopeID HTTP header. If empty, the provider tenant ID is used.
 
 
