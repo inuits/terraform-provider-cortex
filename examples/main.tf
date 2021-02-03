@@ -8,14 +8,18 @@ terraform {
 }
 
 provider "cortex" {
-  address   = "http://cortex"
-  api_key   = "eetha9Nahshieghi2xeejih1ethu1aexq"
+  address   = "http://127.0.0.1:8080"
   tenant_id = "example"
 }
 
-resource "cortex_alertmanager_config" "main" {
-  content = <<EOT
---
+resource "cortex_alertmanager" "main" {
+  template_files = {
+    default_template = <<EOT
+    {{ define "__alertmanager" }}AlertManager{{ end }}
+    {{ define "__alertmanagerURL" }}{{ .ExternalURL }}/#/alerts?receiver={{ .Receiver | urlquery }}{{ end }}
+EOT
+  }
+  alertmanager_config = <<EOT
 route:
   group_by: ['alertname']
   group_wait: 30s
@@ -35,13 +39,13 @@ inhibit_rules:
 EOT
 }
 
-resource "cortex_alertmanager_ruler_rules" "watchdog" {
-  group   = "watchdog"
-  content = <<EOT
+resource "cortex_rules" "watchdog" {
+  namespace = "default"
+  content   = <<EOT
 name: watchdog
 rules:
-- name: Watchdog
+- alert: Watchdog
   expr: vector(1)
-  for: 10m
+  for: 20m
 EOT
 }
