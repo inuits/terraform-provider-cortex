@@ -34,20 +34,10 @@ func resourceRules() *schema.Resource {
 				ForceNew:    true,
 			},
 			"content": &schema.Schema{
-				Description: "Rule group content.",
-				Type:        schema.TypeString,
-				Required:    true,
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
-					olds, err := formatYAML(old)
-					if err != nil {
-						return false
-					}
-					news, err := formatYAML(new)
-					if err != nil {
-						return false
-					}
-					return olds == news
-				},
+				Description:      "Rule group content.",
+				Type:             schema.TypeString,
+				Required:         true,
+				DiffSuppressFunc: suppressYAMLDiff,
 			},
 		},
 	}
