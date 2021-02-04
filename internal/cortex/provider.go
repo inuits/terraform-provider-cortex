@@ -16,9 +16,11 @@ package cortex
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/grafana/cortex-tools/pkg/client"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/logging"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
@@ -73,11 +75,24 @@ func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}
 		if tenantID == "" {
 			tenantID = defaultTenantID
 		}
-		return client.New(client.Config{
+		client, err := client.New(client.Config{
 			Key:     apiKey,
 			Address: address,
 			ID:      tenantID,
 		})
+
+		if err != nil {
+			return nil, err
+		}
+
+		// Setup Terraform-SDK transport to enable debugging via TF_LOGS=debug.
+		tr := client.Client.Transport
+		if client.Client.Transport == nil {
+			tr = http.DefaultTransport
+		}
+		client.Client.Transport = logging.NewTransport("cortex", tr)
+
+		return client, err
 	}
 
 	return f, diags
