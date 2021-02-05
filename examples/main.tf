@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     cortex = {
-      version = "0.1"
+      version = "0.0.3"
       source  = "inuits/cortex"
     }
   }
