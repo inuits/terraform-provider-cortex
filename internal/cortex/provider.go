@@ -36,14 +36,14 @@ func Provider() *schema.Provider {
 			},
 			"api_key": {
 				Type:        schema.TypeString,
-				Optional:    true,
+				Required:    true,
 				Sensitive:   true,
 				DefaultFunc: schema.EnvDefaultFunc("CORTEX_API_KEY", ""),
 				Description: "API key, used as basic auth password.",
 			},
 			"tenant_id": {
 				Type:        schema.TypeString,
-				Optional:    true,
+				Required:    true,
 				DefaultFunc: schema.EnvDefaultFunc("CORTEX_TENANT_ID", ""),
 				Description: "Tenant ID, passed as X-Org-ScopeID HTTP header.",
 			},
