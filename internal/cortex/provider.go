@@ -32,20 +32,20 @@ func Provider() *schema.Provider {
 				Type:        schema.TypeString,
 				Required:    true,
 				DefaultFunc: schema.EnvDefaultFunc("CORTEX_ADDRESS", ""),
-				Description: "Address of the Cortex cluster",
+				Description: "The root URL of Cortex cluster. May alternatively be set via the `CORTEX_ADDRESS` environment variable.",
 			},
 			"api_key": {
 				Type:        schema.TypeString,
 				Optional:    true,
 				Sensitive:   true,
 				DefaultFunc: schema.EnvDefaultFunc("CORTEX_API_KEY", ""),
-				Description: "API key, used as basic auth password.",
+				Description: "API key, used as basic auth password. May alternatively be set via the `CORTEX_API_KEY` environment variable.",
 			},
 			"tenant_id": {
 				Type:        schema.TypeString,
 				Optional:    true,
 				DefaultFunc: schema.EnvDefaultFunc("CORTEX_TENANT_ID", ""),
-				Description: "Tenant ID, passed as X-Org-ScopeID HTTP header.",
+				Description: "The Tenant ID, passed as X-Org-ScopeID HTTP header. May alternatively be set via the `CORTEX_TENANT_ID` environment variable.",
 			},
 		},
 		ResourcesMap: map[string]*schema.Resource{

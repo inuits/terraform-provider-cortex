@@ -21,6 +21,11 @@ func resourceRules() *schema.Resource {
 		UpdateContext: resourceRulesCreate,
 		DeleteContext: resourceRulesDelete,
 		Schema: map[string]*schema.Schema{
+			"id": {
+				Description: "The ID of the rule group.",
+				Type:        schema.TypeString,
+				Computed:    true,
+			},
 			"tenant_id": &schema.Schema{
 				Description: "Tenant ID, passed as X-Org-ScopeID HTTP header. If empty, the provider tenant ID is used.",
 				ForceNew:    true,
