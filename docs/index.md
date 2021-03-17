@@ -3,7 +3,7 @@
 page_title: "cortex Provider"
 subcategory: ""
 description: |-
-  
+   The Cortex provider configures alertmanager and rule-groups in Cortexs
 ---
 
 # Cortex Provider
