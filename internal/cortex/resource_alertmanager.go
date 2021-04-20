@@ -32,6 +32,7 @@ func resourceAlertmanager() *schema.Resource {
 				Type:        schema.TypeString,
 				Description: "Content of the alertmanager configuration.",
 				Required:    true,
+				Sensitive:   true,
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 					olds, err := formatYAML(old)
 					if err != nil {
