@@ -1,0 +1,14 @@
+name: test
+rules:
+- alert: test
+  expr: 'test > 0'
+  labels:
+    test_1: true
+    severity: critical
+    team: platform
+  annotations:
+    title: 'some title'
+    summary: 'some summary'
+    description: |-
+      Some description
+      Link https://github.com

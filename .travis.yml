@@ -1,0 +1,14 @@
+language: go
+os: linux
+dist: focal
+go:
+  - 1.16.x
+script:
+  - make lint
+  - make test
+  - make testacc
+deploy:
+  - provider: script
+    script: make release
+    on:
+      tags: true

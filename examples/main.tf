@@ -1,8 +1,8 @@
 terraform {
   required_providers {
     cortex = {
-      version = "0.0.3"
-      source  = "inuits/cortex"
+      version = "0.0.4"
+      source  = "form3tech-oss/cortex"
     }
   }
 }
@@ -48,4 +48,10 @@ rules:
   expr: vector(1)
   for: 20m
 EOT
+}
+
+resource "cortex_rules" "alerting_rules" {
+  namespace = "default"
+  for_each  = fileset(path.module, "*_alerts.yml")
+  content   = templatefile("${path.module}/${each.key}", {})
 }

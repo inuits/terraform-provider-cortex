@@ -27,3 +27,35 @@ Then, run the following command to initialize the workspace and apply the sample
 ```shell
 terraform init && terraform apply
 ```
+
+## Development
+
+For fast feedback loop during development you can use a dockerized Cortex instance and Terraform CLI overrides.
+Each step is available as a `make` target.
+
+Available local development targets:
+
+Enable Terraform logs and dev overrides
+
+```shell
+make dev.tfrc
+source tools/setup-env.sh
+```
+
+Run Cortex docker container
+
+```shell
+make cortex-up
+```
+
+Shut down and cleanup Cortex container
+
+```shell
+make cortex-down
+```
+
+Remove local Terraform state
+
+```shell
+make clean
+```
