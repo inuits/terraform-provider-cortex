@@ -32,7 +32,7 @@ release:
 
 .PHONY: gorelease
 gorelease: deps
-	goreleaser
+	goreleaser release --snapshot --debug
 
 .PHONY: install
 install: build
