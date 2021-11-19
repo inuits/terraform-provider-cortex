@@ -11,5 +11,5 @@ deploy:
   - provider: script
     script: make gorelease
     on:
-      tags: true
-      all_branches: true
+#      tags: true
+      branch: wojciech-goreleaser
