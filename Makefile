@@ -53,7 +53,7 @@ clean:
 	rm -f examples/terraform.tfstate.backup
 
 .PHONY: lint
-lint: vet tflint tffmtcheck
+lint: vet tflint tffmtcheck goreleaser-lint
 
 .PHONY: vet
 vet:
@@ -66,6 +66,10 @@ tflint: deps
 .PHONY: tffmtcheck
 tffmtcheck: deps
 	terraform fmt -check -recursive ./examples/
+
+.PHONY: goreleaser-lint
+goreleaser-lint: deps
+	goreleaser check
 
 .PHONY: fmt
 fmt: deps
