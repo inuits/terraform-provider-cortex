@@ -30,8 +30,7 @@ builds:
       goarch: '386'
     - goos: windows
       goarch: arm
-  binary: '{{ .ProjectName }}_v{{ .Version }}_{{ .Os }}_{{ .Arch }}'
-  no_unique_dist_dir: true
+  binary: '{{ .ProjectName }}_v{{ .Version }}'
 archives:
   - format: zip
     name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
