@@ -30,8 +30,12 @@ release:
 	GOOS=windows GOARCH=386 go build -o ./bin/${BINARY}_${VERSION}_windows_386
 	GOOS=windows GOARCH=amd64 go build -o ./bin/${BINARY}_${VERSION}_windows_amd64
 
-.PHONY: gorelease
-gorelease: deps
+.PHONY: goreleaser-build
+goreleaser-build: deps
+	goreleaser build --parallelism=1 --snapshot --debug --rm-dist
+
+.PHONY: goreleaser-release
+goreleaser-release: deps
 	goreleaser release --parallelism=1 --debug
 
 .PHONY: install
