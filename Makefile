@@ -36,7 +36,7 @@ goreleaser-build: deps
 
 .PHONY: goreleaser-release
 goreleaser-release: deps
-	goreleaser release --parallelism=1 --debug
+	goreleaser release --parallelism=1 --debug --rm-dist
 
 .PHONY: install
 install: build
