@@ -30,9 +30,13 @@ release:
 	GOOS=windows GOARCH=386 go build -o ./bin/${BINARY}_${VERSION}_windows_386
 	GOOS=windows GOARCH=amd64 go build -o ./bin/${BINARY}_${VERSION}_windows_amd64
 
-.PHONY: gorelease
-gorelease: deps
-	goreleaser
+.PHONY: goreleaser-build
+goreleaser-build: deps
+	goreleaser build --snapshot --rm-dist
+
+.PHONY: goreleaser-release
+goreleaser-release: deps
+	goreleaser release --rm-dist
 
 .PHONY: install
 install: build
@@ -53,7 +57,7 @@ clean:
 	rm -f examples/terraform.tfstate.backup
 
 .PHONY: lint
-lint: vet tflint tffmtcheck
+lint: vet tflint tffmtcheck goreleaser-lint
 
 .PHONY: vet
 vet:
@@ -66,6 +70,10 @@ tflint: deps
 .PHONY: tffmtcheck
 tffmtcheck: deps
 	terraform fmt -check -recursive ./examples/
+
+.PHONY: goreleaser-lint
+goreleaser-lint: deps
+	goreleaser check
 
 .PHONY: fmt
 fmt: deps

@@ -5,10 +5,11 @@ go:
   - 1.16.x
 script:
   - make lint
+  - make goreleaser-build
   - make test
   - make testacc
 deploy:
   - provider: script
-    script: make release
+    script: make goreleaser-release
     on:
       tags: true
