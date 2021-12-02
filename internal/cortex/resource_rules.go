@@ -85,6 +85,7 @@ func resourceRulesDelete(ctx context.Context, d *schema.ResourceData, m interfac
 		namespace = d.Get("namespace").(string)
 		groupName = strings.Split(d.Id(), "/")[0]
 		tenantID  string
+		diags     diag.Diagnostics
 	)
 
 	if data, ok := d.GetOk("tenant_id"); ok {
@@ -103,7 +104,7 @@ func resourceRulesDelete(ctx context.Context, d *schema.ResourceData, m interfac
 
 	d.SetId("")
 
-	return resourceRulesRead(ctx, d, m)
+	return diags
 }
 
 func resourceRulesRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
