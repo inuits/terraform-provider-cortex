@@ -57,7 +57,6 @@ func resourceAlertsCreate(ctx context.Context, d *schema.ResourceData, m interfa
 		config    = d.Get("alertmanager_config").(string)
 		templates = make(map[string]string)
 		tenantID  string
-		diags     diag.Diagnostics
 	)
 
 	if data, ok := d.GetOk("tenant_id"); ok {
@@ -82,7 +81,7 @@ func resourceAlertsCreate(ctx context.Context, d *schema.ResourceData, m interfa
 
 	d.SetId(fmt.Sprintf("alertmanager%s", tenantID))
 
-	return diags
+	return resourceAlertsRead(ctx, d, m)
 }
 
 func resourceAlertsDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
