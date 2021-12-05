@@ -1,0 +1,9 @@
+version: "3.3"
+services:
+  cortex:
+    image: quay.io/cortexproject/cortex:v1.10.0
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./cortex.yaml:/etc/cortex/cortex.yaml:ro
+    command: -config.file=/etc/cortex/cortex.yaml
