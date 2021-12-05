@@ -10,7 +10,7 @@ import (
 
 func resourceAlertmanager() *schema.Resource {
 	return &schema.Resource{
-		Description:   "This alermanager resource enables you to manage Alertmanger configuration in Cortex.",
+		Description:   "This alertmanager resource enables you to manage Alertmanager configuration in Cortex.",
 		CreateContext: resourceAlertsCreate,
 		ReadContext:   resourceAlertsRead,
 		// Updates use the same API as create.
@@ -25,7 +25,7 @@ func resourceAlertmanager() *schema.Resource {
 			},
 			"alertmanager_config": &schema.Schema{
 				Type:        schema.TypeString,
-				Description: "Content of the alertmanager configuration.",
+				Description: "Content of the Alertmanager configuration.",
 				Required:    true,
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 					olds, err := formatYAML(old)
