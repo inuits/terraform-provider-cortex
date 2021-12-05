@@ -3,13 +3,12 @@ package cortex
 import (
 	"context"
 	"fmt"
-	"strings"
-
 	"github.com/grafana/cortex-tools/pkg/rules/rwrulefmt"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/prometheus/prometheus/pkg/rulefmt"
 	"gopkg.in/yaml.v3"
+	"strings"
 )
 
 func resourceRules() *schema.Resource {
@@ -37,7 +36,7 @@ func resourceRules() *schema.Resource {
 				Description:      "Rule group content.",
 				Type:             schema.TypeString,
 				Required:         true,
-				DiffSuppressFunc: suppressYAMLDiff,
+				DiffSuppressFunc: suppressRuleGroupDiff,
 			},
 		},
 	}
@@ -49,7 +48,6 @@ func resourceRulesCreate(ctx context.Context, d *schema.ResourceData, m interfac
 		namespace = d.Get("namespace").(string)
 		content   = d.Get("content").(string)
 		tenantID  string
-		diags     diag.Diagnostics
 	)
 
 	if data, ok := d.GetOk("tenant_id"); ok {
@@ -78,7 +76,7 @@ func resourceRulesCreate(ctx context.Context, d *schema.ResourceData, m interfac
 
 	d.SetId(fmt.Sprintf("%s/%s/%s", rg.Name, namespace, tenantID))
 
-	return diags
+	return resourceRulesRead(ctx, d, m)
 }
 
 func resourceRulesDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
