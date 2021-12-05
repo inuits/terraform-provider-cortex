@@ -40,3 +40,24 @@ test:
 .PHONY: testacc
 testacc:
 	TF_ACC=1 go test $(TEST) -v $(TESTARGS) -timeout 120m -v
+
+.PHONY: clean
+clean:
+	rm -f examples/terraform.tfstate
+	rm -f examples/terraform.tfstate.backup
+
+dev.tfrc:
+	echo 'provider_installation {' >> dev.tfrc
+	echo '  dev_overrides {' >> dev.tfrc
+	echo '    "form3tech-oss/cortex" = "$(CURDIR)"' >> dev.tfrc
+	echo '  }' >> dev.tfrc
+	echo '  direct {}' >> dev.tfrc
+	echo '}' >> dev.tfrc
+
+.PHONY: cortex-up
+cortex-up:
+	docker-compose up -d
+
+.PHONY: cortex-down
+cortex-down:
+	docker-compose down
