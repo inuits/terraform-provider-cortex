@@ -5,9 +5,11 @@ go:
   - 1.16.x
 script:
   - make lint
-  - make goreleaser-build
   - make test
+  - make cortex-up
   - make testacc
+  - make cortex-down
+  - make goreleaser-build
 deploy:
   - provider: script
     script: make goreleaser-release

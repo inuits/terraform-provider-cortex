@@ -6,56 +6,48 @@ This provider enables the provisioning of [cortex](https://cortexmetrics.io).
 
 - [Documentation](https://registry.terraform.io/providers/inuits/cortex/latest/docs)
 
-## Building the provider
-
-Run the following command to build the provider
+## Manually building the provider
 
 ```shell
-go build -o terraform-provider-cortex
-```
+make build
+````
 
-## Test sample configuration
-
-First, build and install the provider.
+To install into `~/.terraform.d/plugins`:
 
 ```shell
 make install
 ```
 
-Then, run the following command to initialize the workspace and apply the sample configuration.
-
-```shell
-terraform init && terraform apply
-```
-
 ## Development
 
-For fast feedback loop during development you can use a dockerized Cortex instance and Terraform CLI overrides.
-Each step is available as a `make` target.
+## Acceptance tests
 
-Available local development targets:
+Terraform acceptance tests run a local Cortex instance.
+```shell
+make cortex-up
+make testacc
+make cortex-down
+```
 
-Enable Terraform logs and dev overrides
+## Ad-hoc testing
 
+For fast feedback loop during development you can run arbitrary Terraform plans using a locally built provider. To run
+these plans against dockerized Cortex instance you can use Terraform development overrides.
+
+To enable Terraform logs and configure development overrides:
 ```shell
 make dev.tfrc
 source tools/setup-env.sh
 ```
 
-Run Cortex docker container
-
+Build the provider and run some terraform, e.g one of the provided examples:
 ```shell
-make cortex-up
+make build
+terraform init
+terraform -chdir=examples apply
 ```
 
-Shut down and cleanup Cortex container
-
-```shell
-make cortex-down
-```
-
-Remove local Terraform state
-
+Remove local Terraform state:
 ```shell
 make clean
 ```
