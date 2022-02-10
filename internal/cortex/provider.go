@@ -24,6 +24,12 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
+const (
+    EnvCortexAddress  = "CORTEX_ADDRESS"
+    EnvCortexApiKey   = "CORTEX_API_KEY"
+    EnvCortexTenantId = "CORTEX_TENANT_ID"
+)
+
 // Provider -
 func Provider() *schema.Provider {
 	return &schema.Provider{
@@ -31,20 +37,20 @@ func Provider() *schema.Provider {
 			"address": {
 				Type:        schema.TypeString,
 				Required:    true,
-				DefaultFunc: schema.EnvDefaultFunc("CORTEX_ADDRESS", ""),
+				DefaultFunc: schema.EnvDefaultFunc(EnvCortexAddress, ""),
 				Description: "Address of the Cortex cluster",
 			},
 			"api_key": {
 				Type:        schema.TypeString,
 				Optional:    true,
 				Sensitive:   true,
-				DefaultFunc: schema.EnvDefaultFunc("CORTEX_API_KEY", ""),
+				DefaultFunc: schema.EnvDefaultFunc(EnvCortexApiKey, ""),
 				Description: "API key, used as basic auth password.",
 			},
 			"tenant_id": {
 				Type:        schema.TypeString,
 				Optional:    true,
-				DefaultFunc: schema.EnvDefaultFunc("CORTEX_TENANT_ID", ""),
+				DefaultFunc: schema.EnvDefaultFunc(EnvCortexTenantId, ""),
 				Description: "Tenant ID, passed as X-Org-ScopeID HTTP header.",
 			},
 		},
