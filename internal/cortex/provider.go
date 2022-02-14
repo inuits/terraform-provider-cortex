@@ -25,9 +25,9 @@ import (
 )
 
 const (
-    EnvCortexAddress  = "CORTEX_ADDRESS"
-    EnvCortexApiKey   = "CORTEX_API_KEY"
-    EnvCortexTenantId = "CORTEX_TENANT_ID"
+	EnvCortexAddress  = "CORTEX_ADDRESS"
+	EnvCortexApiKey   = "CORTEX_API_KEY"
+	EnvCortexTenantId = "CORTEX_TENANT_ID"
 )
 
 // Provider -
@@ -54,8 +54,8 @@ func Provider() *schema.Provider {
 				Description: "Tenant ID, passed as X-Org-ScopeID HTTP header.",
 			},
 			"backend": {
-				Type: 		 schema.TypeString,
-				Optional: 	 true,
+				Type:        schema.TypeString,
+				Optional:    true,
 				Default:     "cortex",
 				Description: "Backend type to interact with: <cortex|loki>",
 			},
@@ -73,7 +73,7 @@ func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}
 		address         = d.Get("address").(string)
 		apiKey          string
 		defaultTenantID string
-		backend			string
+		backend         string
 	)
 	if data, ok := d.GetOk("api_key"); ok {
 		apiKey = data.(string)
