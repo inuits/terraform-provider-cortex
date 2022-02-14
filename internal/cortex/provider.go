@@ -53,6 +53,12 @@ func Provider() *schema.Provider {
 				DefaultFunc: schema.EnvDefaultFunc(EnvCortexTenantId, ""),
 				Description: "Tenant ID, passed as X-Org-ScopeID HTTP header.",
 			},
+			"backend": {
+				Type: 		 schema.TypeString,
+				Optional: 	 true,
+				Default:     "cortex",
+				Description: "Backend type to interact with: <cortex|loki>",
+			},
 		},
 		ResourcesMap: map[string]*schema.Resource{
 			"cortex_rules":        resourceRules(),
@@ -67,12 +73,16 @@ func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}
 		address         = d.Get("address").(string)
 		apiKey          string
 		defaultTenantID string
+		backend			string
 	)
 	if data, ok := d.GetOk("api_key"); ok {
 		apiKey = data.(string)
 	}
 	if data, ok := d.GetOk("tenant_id"); ok {
 		defaultTenantID = data.(string)
+	}
+	if data, ok := d.GetOk("backend"); ok {
+		backend = data.(string)
 	}
 
 	var diags diag.Diagnostics
@@ -81,11 +91,16 @@ func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}
 		if tenantID == "" {
 			tenantID = defaultTenantID
 		}
-		client, err := client.New(client.Config{
+		clientConfig := client.Config{
 			Key:     apiKey,
 			Address: address,
 			ID:      tenantID,
-		})
+		}
+		if backend == "loki" {
+			clientConfig.UseLegacyRoutes = true
+		}
+
+		client, err := client.New(clientConfig)
 
 		if err != nil {
 			return nil, err
